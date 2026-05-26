@@ -14,8 +14,8 @@
 <body>
 
     <!-- Music -->
-    <audio autoplay loop>
-        <source src="music1.mp3" type="audio/mp3">
+    <audio id="bg-music" controls autoplay loop>
+        <source src="music1.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Floating Hearts -->
@@ -56,6 +56,7 @@
             <p class="details">
                 Giza, Egypt
             </p>
+
             <!-- Location Button -->
             <a href="https://www.google.com/maps/place/29%C2%B055'33.0%22N+31%C2%B003'32.0%22E/@29.9258264,31.0563027,17z/data=!3m1!4b1!4m4!3m3!8m2!3d29.9258264!4d31.0588776?hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank">
@@ -69,6 +70,23 @@
         </div>
 
     </div>
+
+    <!-- Autoplay fallback (required by browsers) -->
+    <script>
+        const music = document.getElementById("bg-music");
+
+        // try autoplay
+        const playPromise = music.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // if blocked, play on first user click
+                document.body.addEventListener("click", () => {
+                    music.play();
+                }, { once: true });
+            });
+        }
+    </script>
 
 </body>
 
